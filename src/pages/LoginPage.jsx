@@ -107,7 +107,7 @@ export default function LoginPage() {
       {/* Logo */}
       <div className="absolute right-4 top-4">
         <img
-          src="/src/public/logo.png"
+          src="/src/assets/logo.png"
           alt="Logo"
           className="h-12 w-12 object-contain"
         />

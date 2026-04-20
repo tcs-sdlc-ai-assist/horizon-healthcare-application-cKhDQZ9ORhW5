@@ -178,7 +178,7 @@ export function Navbar() {
               aria-label="Horizon Healthcare Dashboard Home"
             >
               <img
-                src="/src/public/logo.png"
+                src="/src/assets/logo.png"
                 alt="Horizon Logo"
                 className="object-contain"
                 style={{ width: '204px', height: '72px' }}
@@ -193,11 +193,10 @@ export function Navbar() {
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                      active
+                    className={`inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors ${active
                         ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
                         : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100'
-                    }`}
+                      }`}
                     aria-current={active ? 'page' : undefined}
                   >
                     {link.icon}
@@ -215,11 +214,10 @@ export function Navbar() {
             {canViewAudit && (
               <Link
                 to="/audit-log"
-                className={`hidden items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors sm:inline-flex ${
-                  isActiveLink('/audit-log')
+                className={`hidden items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors sm:inline-flex ${isActiveLink('/audit-log')
                     ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100'
-                }`}
+                  }`}
                 aria-label="View audit log"
               >
                 <svg
@@ -244,11 +242,10 @@ export function Navbar() {
             {canConfigure && (
               <Link
                 to="/admin/config"
-                className={`hidden items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors sm:inline-flex ${
-                  isActiveLink('/admin')
+                className={`hidden items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors sm:inline-flex ${isActiveLink('/admin')
                     ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100'
-                }`}
+                  }`}
                 aria-label="Admin configuration"
               >
                 <svg
@@ -297,9 +294,8 @@ export function Navbar() {
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`hidden h-4 w-4 text-slate-400 transition-transform lg:block ${
-                    isProfileMenuOpen ? 'rotate-180' : ''
-                  }`}
+                  className={`hidden h-4 w-4 text-slate-400 transition-transform lg:block ${isProfileMenuOpen ? 'rotate-180' : ''
+                    }`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -482,11 +478,10 @@ export function Navbar() {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${
-                    active
+                  className={`flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${active
                       ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
                       : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100'
-                  }`}
+                    }`}
                   aria-current={active ? 'page' : undefined}
                   onClick={closeMobileMenu}
                 >
@@ -500,11 +495,10 @@ export function Navbar() {
             {canViewAudit && (
               <Link
                 to="/audit-log"
-                className={`flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${
-                  isActiveLink('/audit-log')
+                className={`flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${isActiveLink('/audit-log')
                     ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100'
-                }`}
+                  }`}
                 onClick={closeMobileMenu}
               >
                 <svg
@@ -529,11 +523,10 @@ export function Navbar() {
             {canConfigure && (
               <Link
                 to="/admin/config"
-                className={`flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${
-                  isActiveLink('/admin')
+                className={`flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${isActiveLink('/admin')
                     ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100'
-                }`}
+                  }`}
                 onClick={closeMobileMenu}
               >
                 <svg
