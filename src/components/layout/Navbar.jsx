@@ -167,8 +167,8 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-40 border-b border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+      <div className="w-full px-[20px]">
+        <div className="flex h-20 items-center justify-between">
           {/* Left section: Logo + Nav Links */}
           <div className="flex items-center gap-6">
             {/* Branding / Logo */}
@@ -177,23 +177,12 @@ export function Navbar() {
               className="flex items-center gap-2 text-slate-900 transition-colors hover:text-blue-600 dark:text-slate-100 dark:hover:text-blue-400"
               aria-label="Horizon Healthcare Dashboard Home"
             >
-              <svg
-                className="h-7 w-7 text-blue-600 dark:text-blue-400"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                />
-              </svg>
-              <span className="hidden text-lg font-bold tracking-tight sm:inline">
-                Horizon
-              </span>
+              <img
+                src="/src/public/logo.png"
+                alt="Horizon Logo"
+                className="object-contain"
+                style={{ width: '204px', height: '72px' }}
+              />
             </Link>
 
             {/* Desktop Navigation Links */}
@@ -221,6 +210,7 @@ export function Navbar() {
 
           {/* Right section: Actions + Profile */}
           <div className="flex items-center gap-2">
+
             {/* Audit Log Button (RBAC-gated) */}
             {canViewAudit && (
               <Link

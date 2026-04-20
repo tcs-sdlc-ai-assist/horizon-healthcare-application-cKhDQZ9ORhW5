@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom';
 export default function NotFoundPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4">
+      {/* Logo */}
+      <div className="absolute right-4 top-4">
+        <img
+          src="/src/public/logo.png"
+          alt="Logo"
+          className="h-12 w-12 object-contain"
+        />
+      </div>
+
       <div className="max-w-md w-full text-center space-y-6">
         <div className="space-y-2">
           <div className="flex items-center justify-center gap-2 mb-4">

@@ -104,6 +104,15 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 px-4 py-12 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      {/* Logo */}
+      <div className="absolute right-4 top-4">
+        <img
+          src="/src/public/logo.png"
+          alt="Logo"
+          className="h-12 w-12 object-contain"
+        />
+      </div>
+
       <div className="w-full max-w-md">
         {/* Branding Header */}
         <div className="mb-8 text-center">
