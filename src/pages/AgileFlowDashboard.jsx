@@ -1,5 +1,5 @@
-import { useState, useCallback, useMemo, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { DrillDownWrapper } from '@/components/common/DrillDownWrapper';
 import { ColumnChart } from '@/components/charts/ColumnChart';
@@ -138,7 +138,24 @@ function prepareFlowDistributionData(flowData) {
  */
 export default function AgileFlowDashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { canImport } = useRoleGuard();
+
+  useEffect(() => {
+    const parts = location.pathname.split('/');
+    if (parts.length > 3) {
+      const sectionId = parts[3];
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      const mainElement = document.querySelector('main');
+      if (mainElement) {
+        mainElement.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }, [location.pathname]);
   const { filters } = useFilters();
   const { data, loading, error, refresh } = useDashboardData('agileflow');
 
@@ -403,7 +420,7 @@ export default function AgileFlowDashboard() {
           </div>
 
           {/* KPI Summary Cards */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div id="velocity" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <MetricCard
               title="Avg Velocity"
               value={summary.avgVelocity}
@@ -459,72 +476,78 @@ export default function AgileFlowDashboard() {
           </div>
 
           {/* Sprint Committed / Done / Deployed Column Chart */}
-          <ColumnChart
-            data={columnChartData}
-            title="Sprint Commitment vs Delivery"
-            categoryKey="sprintName"
-            series={[
-              {
-                dataKey: 'committed',
-                name: 'Committed',
-                color: CHART_COLORS.primary[0],
-              },
-              {
-                dataKey: 'done',
-                name: 'Done',
-                color: CHART_COLORS.primary[1],
-              },
-              {
-                dataKey: 'deployed',
-                name: 'Deployed',
-                color: CHART_COLORS.primary[2],
-              },
-            ]}
-            annotations={predictabilityAnnotations}
-            valueFormat="number"
-            yAxisLabel="Story Points"
-            height={380}
-            showGrid
-            showLegend
-            onBarClick={handleColumnBarClick}
-            emptyMessage="No sprint data available for the selected filters."
-          />
+          <div id="sprint">
+            <ColumnChart
+              data={columnChartData}
+              title="Sprint Commitment vs Delivery"
+              categoryKey="sprintName"
+              series={[
+                {
+                  dataKey: 'committed',
+                  name: 'Committed',
+                  color: CHART_COLORS.primary[0],
+                },
+                {
+                  dataKey: 'done',
+                  name: 'Done',
+                  color: CHART_COLORS.primary[1],
+                },
+                {
+                  dataKey: 'deployed',
+                  name: 'Deployed',
+                  color: CHART_COLORS.primary[2],
+                },
+              ]}
+              annotations={predictabilityAnnotations}
+              valueFormat="number"
+              yAxisLabel="Story Points"
+              height={380}
+              showGrid
+              showLegend
+              onBarClick={handleColumnBarClick}
+              emptyMessage="No sprint data available for the selected filters."
+            />
+          </div>
 
           {/* Flow Distribution Bar Chart */}
-          <BarChart
-            data={flowChartData}
-            title="Flow Distribution by Team"
-            xKey="team"
-            yKeys={['features', 'defects', 'risks', 'debt']}
-            labels={['Features', 'Defects', 'Risks', 'Tech Debt']}
-            colors={[
-              CHART_COLORS.primary[0],
-              CHART_COLORS.severity.high,
-              CHART_COLORS.severity.medium,
-              CHART_COLORS.severity.low,
-            ]}
-            mode="stacked"
-            orientation="vertical"
-            height={350}
-            showGrid
-            showLegend
-            showTooltip
-            valueSuffix="%"
-            yAxisLabel="Percentage"
-          />
+          <div id="flow">
+            <BarChart
+              data={flowChartData}
+              title="Flow Distribution by Team"
+              xKey="team"
+              yKeys={['features', 'defects', 'risks', 'debt']}
+              labels={['Features', 'Defects', 'Risks', 'Tech Debt']}
+              colors={[
+                CHART_COLORS.primary[0],
+                CHART_COLORS.severity.high,
+                CHART_COLORS.severity.medium,
+                CHART_COLORS.severity.low,
+              ]}
+              mode="stacked"
+              orientation="vertical"
+              height={350}
+              showGrid
+              showLegend
+              showTooltip
+              valueSuffix="%"
+              yAxisLabel="Percentage"
+            />
+          </div>
 
           {/* Sprint Summary Table */}
-          <SprintSummaryTable
-            data={sprintMetrics}
-            title="Sprint Summary"
-            onRowClick={handleSprintRowClick}
-            onFieldSave={handleFieldSave}
-            showTeam
-            showActions
-            showFilter
-            compact={false}
-            emptyMessage="No sprint data available for the selected filters."
-          />
+          <div id="carryover">
+            <SprintSummaryTable
+              data={sprintMetrics}
+              title="Sprint Summary"
+              onRowClick={handleSprintRowClick}
+              onFieldSave={handleFieldSave}
+              showTeam
+              showActions
+              showFilter
+              compact={false}
+              emptyMessage="No sprint data available for the selected filters."
+            />
+          </div>
         </div>
       </DrillDownWrapper>
 

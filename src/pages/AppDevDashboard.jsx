@@ -1,5 +1,5 @@
-import { useMemo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMemo, useCallback, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { MetricCard } from '@/components/charts/MetricCard';
 import { HeatmapChart } from '@/components/charts/HeatmapChart';
@@ -402,6 +402,23 @@ function buildHeatmapData(techDebtMetrics) {
 export default function AppDevDashboard() {
   const { data, loading, error, refresh } = useDashboardData('appdev');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const parts = location.pathname.split('/');
+    if (parts.length > 3) {
+      const sectionId = parts[3];
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      const mainElement = document.querySelector('main');
+      if (mainElement) {
+        mainElement.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }, [location.pathname]);
 
   const applications = data.applications || [];
   const doraMetrics = data.doraMetrics || [];
@@ -535,7 +552,7 @@ export default function AppDevDashboard() {
         )}
 
         {/* Section: DORA Metrics */}
-        <section>
+        <section id="dora">
           <h2 className="mb-4 text-lg font-semibold text-slate-800 dark:text-slate-100">
             DORA Metrics
           </h2>
@@ -591,7 +608,7 @@ export default function AppDevDashboard() {
         </section>
 
         {/* Section: Reliability & Incidents */}
-        <section>
+        <section id="reliability">
           <h2 className="mb-4 text-lg font-semibold text-slate-800 dark:text-slate-100">
             Reliability & Incidents
           </h2>
@@ -633,7 +650,7 @@ export default function AppDevDashboard() {
         </section>
 
         {/* Section: Security & Compliance */}
-        <section>
+        <section id="compliance">
           <h2 className="mb-4 text-lg font-semibold text-slate-800 dark:text-slate-100">
             Security & Compliance
           </h2>
@@ -691,7 +708,7 @@ export default function AppDevDashboard() {
         </section>
 
         {/* Section: Tech Debt Heatmap */}
-        <section>
+        <section id="techdebt">
           <HeatmapChart
             data={heatmapData}
             title="Tech Debt Index by Domain & Application"

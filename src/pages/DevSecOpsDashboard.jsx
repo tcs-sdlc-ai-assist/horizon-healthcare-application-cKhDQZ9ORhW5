@@ -1,4 +1,5 @@
-import { useState, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { TimeSeriesChart } from '@/components/charts/TimeSeriesChart';
 import { BarChart } from '@/components/charts/BarChart';
@@ -388,6 +389,23 @@ function buildStatusMatrixData(statusData, scanData, pipelineData, coverageData)
 export default function DevSecOpsDashboard() {
   const { data, loading, error, refresh } = useDashboardData('devsecops');
   const { canImport, canViewAudit } = useRoleGuard();
+  const location = useLocation();
+
+  useEffect(() => {
+    const parts = location.pathname.split('/');
+    if (parts.length > 3) {
+      const sectionId = parts[3];
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      const mainElement = document.querySelector('main');
+      if (mainElement) {
+        mainElement.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }, [location.pathname]);
 
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [isAuditPanelOpen, setIsAuditPanelOpen] = useState(false);
@@ -670,31 +688,33 @@ export default function DevSecOpsDashboard() {
         </div>
 
         {/* Development Readiness Trend */}
-        <TimeSeriesChart
-          data={readinessChartData}
-          title="Development Readiness Trend"
-          series={[
-            { key: 'readinessScore', name: 'Readiness Score', color: '#3B82F6' },
-            { key: 'buildSuccessRate', name: 'Build Success Rate', color: '#10B981' },
-          ]}
-          config={{
-            valueUnit: 'percentage',
-            yAxisMin: 0,
-            yAxisMax: 100,
-            showGrid: true,
-            showLegend: true,
-            showDots: true,
-            strokeWidth: 2,
-            curveType: 'monotone',
-            referenceLines: [
-              { value: 90, label: 'Target (90%)', color: '#94a3b8' },
-            ],
-          }}
-          height={350}
-        />
+        <div id="maturity">
+          <TimeSeriesChart
+            data={readinessChartData}
+            title="Development Readiness Trend"
+            series={[
+              { key: 'readinessScore', name: 'Readiness Score', color: '#3B82F6' },
+              { key: 'buildSuccessRate', name: 'Build Success Rate', color: '#10B981' },
+            ]}
+            config={{
+              valueUnit: 'percentage',
+              yAxisMin: 0,
+              yAxisMax: 100,
+              showGrid: true,
+              showLegend: true,
+              showDots: true,
+              strokeWidth: 2,
+              curveType: 'monotone',
+              referenceLines: [
+                { value: 90, label: 'Target (90%)', color: '#94a3b8' },
+              ],
+            }}
+            height={350}
+          />
+        </div>
 
         {/* Charts Row: Unit Testing Coverage + Security Scan Findings */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div id="security" className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <BarChart
             data={coverageChartData}
             title="Unit Test Coverage by Application"
@@ -729,21 +749,23 @@ export default function DevSecOpsDashboard() {
         </div>
 
         {/* Deployment Pipeline Stages */}
-        <ColumnChart
-          data={pipelineChartData}
-          title="Deployment Pipeline Stage Results"
-          categoryKey="stage"
-          series={[
-            { dataKey: 'success', name: 'Success', color: '#10B981' },
-            { dataKey: 'failed', name: 'Failed', color: '#EF4444' },
-          ]}
-          valueFormat="number"
-          yAxisLabel="Executions"
-          height={350}
-          showGrid
-          showLegend
-          emptyMessage="No pipeline data available for the selected filters."
-        />
+        <div id="pipeline">
+          <ColumnChart
+            data={pipelineChartData}
+            title="Deployment Pipeline Stage Results"
+            categoryKey="stage"
+            series={[
+              { dataKey: 'success', name: 'Success', color: '#10B981' },
+              { dataKey: 'failed', name: 'Failed', color: '#EF4444' },
+            ]}
+            valueFormat="number"
+            yAxisLabel="Executions"
+            height={350}
+            showGrid
+            showLegend
+            emptyMessage="No pipeline data available for the selected filters."
+          />
+        </div>
 
         {/* Application Status Matrix */}
         <StatusMatrix
