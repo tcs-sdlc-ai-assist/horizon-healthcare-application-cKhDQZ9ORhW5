@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { ROLES } from '@/constants/roles';
+import logoUrl from '@/assets/logo.png';
 
 const ROLE_OPTIONS = [
   { value: 'admin', label: ROLES.ADMIN, description: 'Full access to all features and settings' },
@@ -104,36 +105,17 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 px-4 py-12 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      {/* Logo */}
-      <div className="absolute right-4 top-4">
-        <img
-          src="/src/assets/logo.png"
-          alt="Logo"
-          className="h-12 w-12 object-contain"
-        />
-      </div>
 
       <div className="w-full max-w-md">
         {/* Branding Header */}
         <div className="mb-8 text-center">
-          <div className="mb-4 flex items-center justify-center gap-2.5">
-            <svg
-              className="h-10 w-10 text-blue-600 dark:text-blue-400"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-              />
-            </svg>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
-              Horizon Healthcare
-            </h1>
+          <div className="mb-4 flex items-center justify-center">
+            <img
+              src={logoUrl}
+              alt="Horizon Healthcare Logo"
+              className="object-contain"
+              style={{ width: '204px', height: '72px' }}
+            />
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400">
             Sign in to access the Healthcare Dashboards

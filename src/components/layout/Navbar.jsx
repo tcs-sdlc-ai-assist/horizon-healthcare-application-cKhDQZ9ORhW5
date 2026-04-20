@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { useRoleGuard } from '@/hooks/useRoleGuard';
+import logoUrl from '@/assets/logo.png';
 
 const NAV_LINKS = [
   {
@@ -178,7 +179,7 @@ export function Navbar() {
               aria-label="Horizon Healthcare Dashboard Home"
             >
               <img
-                src="/src/assets/logo.png"
+                src={logoUrl}
                 alt="Horizon Logo"
                 className="object-contain"
                 style={{ width: '204px', height: '72px' }}

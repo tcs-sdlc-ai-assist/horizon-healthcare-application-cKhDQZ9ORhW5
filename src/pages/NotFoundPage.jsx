@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logoUrl from '@/assets/logo.png';
 
 export default function NotFoundPage() {
   return (
@@ -6,7 +7,7 @@ export default function NotFoundPage() {
       {/* Logo */}
       <div className="absolute right-4 top-4">
         <img
-          src="/src/assets/logo.png"
+          src={logoUrl}
           alt="Logo"
           className="h-12 w-12 object-contain"
         />
